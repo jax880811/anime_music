@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import pymysql
 
+pymysql.install_as_MySQLdb()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -77,8 +79,16 @@ WSGI_APPLICATION = "anime_music.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'Local instance MySQL80',  # 替換為您的資料庫名稱
+        'USER': 'root',  # 替換為您的 MySQL 用戶名
+        'PASSWORD': '1qaz@WSX3edc',  # 替換為您的 MySQL 密碼
+        'HOST': 'localhost',  # 通常為 'localhost'
+        'PORT': '3306',  # MySQL 的標準端口
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'sql_mode': 'TRADITIONAL',
+        }
     }
 }
 
