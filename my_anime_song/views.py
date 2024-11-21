@@ -9,3 +9,9 @@ from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import action
 # Create your views here.
+from my_anime_song.models import AnimeSong
+from my_anime_song.serializers import MusicSerializer
+
+class MusicViewSet(viewsets.ModelViewSet):
+    queryset = AnimeSong.objects.all()
+    serializer_class = MusicSerializer

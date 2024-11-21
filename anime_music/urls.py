@@ -20,9 +20,12 @@ from django.urls import path
 from django.contrib import admin
 from django.conf.urls import include
 from rest_framework.routers import DefaultRouter
-
+from my_anime_song import views
 
 router = DefaultRouter()
+router.register(r'music', views.MusicViewSet)
+
+
 urlpatterns = [
     path("admin/", admin.site.urls),
 ]
