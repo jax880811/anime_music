@@ -80,7 +80,7 @@ WSGI_APPLICATION = "anime_music.wsgi.application"
 DATABASES = {
     "default": {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Local instance MySQL80',  # 替換為您的資料庫名稱
+        'NAME': 'anime_song',  # 替換為您的資料庫名稱
         'USER': 'root',  # 替換為您的 MySQL 用戶名
         'PASSWORD': '1qaz@WSX3edc',  # 替換為您的 MySQL 密碼
         'HOST': 'localhost',  # 通常為 'localhost'
