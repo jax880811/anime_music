@@ -21,12 +21,16 @@ from django.contrib import admin
 from django.conf.urls import include
 from rest_framework.routers import DefaultRouter
 from my_anime_song import views
+from my_anime_song.views import MusicViewSet, SearchMusicView
 
 router = DefaultRouter()
 router.register(r'music', views.MusicViewSet)
-
+#router.register(r'search', SearchMusicView, basename='search')
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("search/", SearchMusicView.as_view(), name="search_music"),
+    #path('api/search/', SearchMusicView.as_view({'get': 'search_music'}), name='search_music'),
     path('api/', include(router.urls)),
+    
 ]
