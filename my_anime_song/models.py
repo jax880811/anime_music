@@ -8,6 +8,7 @@ class AnimeSong(models.Model):
     broadcast_year = models.IntegerField(null=True, db_column='播出年份')             # 對應欄位 `播出年份`
     broadcast_month = models.IntegerField(null=True, db_column='播出月份')            # 對應欄位 `播出月份`
     singer_or_group = models.CharField(max_length=45, null=True, db_column='歌手或者表演團體')             # 對應欄位 `歌手`
+    song_url =  models.CharField(max_length=100, null=True, db_column='音樂網址')
 
     class Meta:
         db_table = 'anime_song'  # 對應資料庫中的表名稱
