@@ -1,29 +1,62 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>音樂搜尋</title>
+    <title>Search Music</title>
 </head>
 <body>
-    <h1>搜尋音樂</h1>
 
-    <form method="get" action="{% url 'search_music' %}">
-        <label for="q">音樂名稱:</label>
-        <input type="text" id="q" name="q" value="{{ query }}">
-        <button type="submit">搜尋</button>
-    </form>
+<h1>Search Music</h1>
 
-    <h2>搜尋結果：</h2>
-    {% if results %}
-        <ul>
-            {% for result in results %}
-                <li>
-                    <a href="{{ result.1 }}" target="_blank">{{ result.0 }}</a>
-                </li>
+<form method="get">
+    <input type="text" name="q" value="{{ query }}" placeholder="Search for a song">
+    <button type="submit">Search</button>
+</form>
+
+<!-- 顯示搜尋結果 -->
+<h2>Search Results</h2>
+{% if results %}
+    <ul>
+    {% for song in results %}
+        <li>{{ song.0 }} - <a href="{{ song.1 }}">Listen</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No matching songs found.</p>
+{% endif %}
+
+<h2>All Songs in Database</h2>
+{% if all_songs %}
+    <table>
+        <thead>
+            <tr>
+                <th>歌曲名稱</th>
+                <th>作品名稱</th>
+                <th>季度或其他</th>
+                <th>播出年份</th>
+                <th>播出月份</th>
+                <th>歌手或者表演團體</th>
+                <th>音樂網址</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for song in all_songs %}
+                <tr>
+                    <td>{{ song.song_name }}</td>
+                    <td>{{ song.work_name }}</td>
+                    <td>{{ song.season_or_other }}</td>
+                    <td>{{ song.broadcast_year }}</td>
+                    <td>{{ song.broadcast_month }}</td>
+                    <td>{{ song.singer_or_group }}</td>
+                    <td><a href="{{ song.song_url }}">Listen</a></td>
+                </tr>
             {% endfor %}
-        </ul>
-    {% else %}
-        <p>沒有找到相關的音樂。</p>
-    {% endif %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No songs available.</p>
+{% endif %}
+
+
+
 </body>
 </html>

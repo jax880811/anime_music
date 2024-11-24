@@ -17,7 +17,7 @@ from my_anime_song.models import AnimeSong
 from my_anime_song.serializers import MusicSerializer
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
-from my_anime_song.models import AnimeSong
+
 from django.views import View
 
 class SearchMusicView(View):
@@ -27,6 +27,8 @@ class SearchMusicView(View):
         # 獲取查詢字串（音樂名稱）
         query = request.GET.get('q', '')  # 默認為空字串
         results = []
+
+        all_songs = AnimeSong.objects.all()  # 使用 Django ORM 查詢所有歌曲
 
         if query:
             # 使用原生 SQL 查詢 MySQL 資料庫
@@ -39,29 +41,12 @@ class SearchMusicView(View):
                 results = cursor.fetchall()
 
         # 傳遞資料到模板，供前端渲染
-        return render(request, self.template_name, {'query': query, 'results': results})
-'''
-class SearchMusicView(View):
-    template_name = 'search_music.html'  # 模板檔案名稱
+        return render(request, self.template_name, {
+            'query': query, 
+            'results': results,
+            'all_songs': all_songs  # 傳遞所有歌曲
+        })
 
-    def get(self, request):
-        # 獲取查詢字串（音樂名稱）
-        query = request.GET.get('q', '')
-        results = []
-
-        if query:
-            # 使用原生 SQL 查詢 MySQL 資料庫
-            with connection.cursor() as cursor:
-                cursor.execute("""
-                    SELECT 歌曲名稱, 音樂網址
-                    FROM anime_song
-                    WHERE 歌曲名稱 LIKE %s
-                """, [f"%{query}%"])
-                results = cursor.fetchall()
-
-        # 傳遞資料到模板
-        return render(request, self.template_name, {'query': query, 'results': results})
-        '''
 '''
 class SearchMusicView(ViewSet):
     @action(detail=False, methods=['get'], url_path='search')
